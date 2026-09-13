@@ -1,0 +1,10 @@
+{
+    "apiKey": null,
+    "apiPollInterval": 25,
+    "webBacklog": 5,
+    "webBindAddress": "127.0.0.1",
+    "webBindPort": 8765,
+    "webCorsOriginList": [
+        "http://localhost"
+    ]
+}

@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install test dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: python -m pytest
+
+      - name: Build add-on package
+        run: python build_addon.py
+
+      - name: Verify package integrity
+        run: python -m zipfile -t dist/AnkiConnectLocal.ankiaddon
+
+      - name: Upload installable add-on
+        uses: actions/upload-artifact@v4
+        with:
+          name: AnkiConnectLocal
+          path: dist/AnkiConnectLocal.ankiaddon
+          if-no-files-found: error

@@ -1,0 +1,11 @@
+*.pyc
+dist/
+.idea/
+.vscode/
+.fleet/
+.vs/
+*.iml
+*.ipr
+*.iws
+.project
+.pydevproject
